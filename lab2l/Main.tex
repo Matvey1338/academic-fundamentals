@@ -1,13 +1,12 @@
 \documentclass[a4paper, 12pt, oneside]{Thesis}  
 
-% \documentclass[12pt]{bredele}  
+% \documentclass[a4paper, 12pt, oneside]{elife}  
 
 \usepackage{array,graphicx}
 \usepackage{amsmath}
 \usepackage{multirow} 
 \usepackage{array}    
 \usepackage{lscape}  
-
 
 %------------Закоментировать при смене шаблона
 \graphicspath{Figures/} 
@@ -33,23 +32,33 @@
 % ----------------------------------------------------------------
 \begin{document}
 
-\frontmatter      % Begin the book's numbering; frontpage
-%%% % [Разкоментировать при смене шаблона]------------------------------------------------------------------
-% \title  {Latex Lab 2.3}
 
-% \author{Uhtverov Matvey \\ Senutin Sergey}
+%%% % [Разкоментировать при смене шаблона]------------------------------------------------------------------
+% \title{Latex Lab 2.3}
+
+% \author[]{Uhtverov Matvey Sergeevich}
+% \author[]{Senutin Sergey Sergeevich}
+% \affil[]{Samara national research university}
+
+
 % \maketitle
 
+% \begin{abstract}
+% In the Internet age, malware has posed serious and evolving security threats to Internet users. To protect legitimate users from these threats, anti-malware software products from different companies provide the major defense against malware.  In this article, we first provide a brief overview on malware as well as the anti-malware industry, and present the industrial needs on malware detection. We then survey intelligent malware detection methods. In these methods, the process of detection is usually divided into two stages: feature extraction and classification/clustering. The performance of such intelligent malware detection approaches critically depend on the extracted features and the methods for classification/clustering. We provide a comprehensive investigation on both the feature extraction and the classification/clustering techniques. We also discuss the additional issues and the challenges of malware detection using data mining techniques and finally forecast the trends of malware development.
+% \end{abstract}
+%%------------------------------------------------------------------
 % [Закоментировать при смене шаблона]-------------------
+\frontmatter      % Begin the book's numbering; frontpage
 \title  {Latex Lab 2.3}
 
 \authors  {\texorpdfstring
-            {Uhtverov Matvey - Senutin Sergey}
+            {\href{mailto:author@csd.auth.gr}Uhtverov Matvey - Senutin Sergey}
             {Author's Name}
             }
 \addresses  {\groupname\\\deptname\\\univname}  % Do not change this here, instead these must be set in the "Thesis.cls" file, please look through it instead
-
-
+\date       {}
+\subject    {}
+\keywords   {}
 \maketitle
 
 
@@ -58,16 +67,16 @@
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
 In the Internet age, malware has posed serious and evolving security threats to Internet users. To protect legitimate users from these threats, anti-malware software products from different companies provide the major defense against malware.  In this article, we first provide a brief overview on malware as well as the anti-malware industry, and present the industrial needs on malware detection. We then survey intelligent malware detection methods. In these methods, the process of detection is usually divided into two stages: feature extraction and classification/clustering. The performance of such intelligent malware detection approaches critically depend on the extracted features and the methods for classification/clustering. We provide a comprehensive investigation on both the feature extraction and the classification/clustering techniques. We also discuss the additional issues and the challenges of malware detection using data mining techniques and finally forecast the trends of malware development.
-
 }
-%----------------------------------------------------------------------------
 \lhead{\emph{Contents}} 
+%----------------------------------------------------------------------------
+
 \tableofcontents 
 
 
-\chapter{Overview of malware and anti-malware industry} 
+\section{Overview of malware and anti-malware industry} 
 \label{Overview of malware and anti-malware industry}
-\section{Types of Malware}
+\subsection{Types of Malware}
 \begin{enumerate}
     \item Self-Replicating Malware:
     \begin{itemize}
@@ -81,7 +90,7 @@ In the Internet age, malware has posed serious and evolving security threats to 
         \item Spyware.
     \end{itemize}
 \end{enumerate}
-\section{Anti-malware industry}
+\subsection{Anti-malware industry}
 We will now revisit the anti-malware industry, which is used in the
 later part of this paper.
 
@@ -95,10 +104,10 @@ later part of this paper.
 \end{itemize}
 
 
-\chapter{Feature selection} 
+\section{Feature selection} 
 \label{Feature selection}
 From the above, the FS (Fk) is essentially the ratio of the average inter-class distance to the average intra-class distance. Thus, higher values of Fk imply that members belonging to different classes are further separated using the k-th feature, while members in the same class are closer together. The discrimination ability for the k-th feature increases with increasing values of Fk. For the malware detection, the issue is often a two-class problem—positive (malicious) class or negative (benign) class. The FS then reduces to a simple form
-\section{Max-Relevance Algorithm}
+\subsection{Max-Relevance Algorithm}
 
 To minimize the classification error, feature selection often requires that the target class c has maximal statistical dependency on the selected features. One approach to realize maximal dependency (MaxDependency) is maximal relevance (Max-Relevance) feature selection
 \begin{equation}
@@ -108,10 +117,10 @@ I(a_i, c) = \iint p(a_i, c) \log \left( \frac{p(a_i, c)}{p(a_i) p(c)} \right) \,
 where \( p(a_i), p(c) \) - mutual information defined using their appearance frequencies.
 
 \begin{equation}
-SI(S, A) = - \left| V \right| \sum_{v=1}^{\left| S \right|} \frac{\left| S_v \right|}{\left| S \right|} \times \log_2 \frac{\left| S_v \right|}{\left| S \right|}
+SI(S, A) = - \left| V \right| \sum_{v=1}^{\left| S \right|} \frac{\left| S_v \right|}{\left| S \right|} \times \log_2 \frac{\left| S_v \right|}{\left| S \right|}, \text{ where } SI(S, A) \text{ is the entropy of } S
 \label{entropy}
 \end{equation}
-where \( SI(S, A) \) – entropy of \( S \).
+% where \( SI(S, A) \) – entropy of \( S \).
 
 \begin{equation}
 IGR(S, A) = \frac{IG(S, A)}{SI(S, A)}
@@ -119,13 +128,13 @@ IGR(S, A) = \frac{IG(S, A)}{SI(S, A)}
 \end{equation}
 
 To classify any unknown file, which could be either benign or malicious, the classification process can be divided into two consecutive steps: model construction and model usage. In the first step, training samples including malware and benign files are provided to the system. Then, each sample is parsed to extract the features representing its underlying characteristics. The extracted features are then converted to vectors in the training set.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{12.png} 
     \caption{The overall process of malware detection using data mining techniques.}
     \label{sample_image}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \text Signature-based Malware Detection To protect legitimate users from malware threats.
     \par
     \centering
@@ -134,25 +143,25 @@ To classify any unknown file, which could be either benign or malicious, the cla
     \label{sample_image1}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \caption{Summary of Some Typical Feature Extraction Methods in Malware Detection}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{3.5cm}|>{\centering\arraybackslash}p{3.5cm}|>{\centering\arraybackslash}p{3.5cm}|}
 \hline
 \textbf{Survey} & \textbf{Static analysis} & \textbf{Dynamic analysis} & \textbf{Other analysis} \\ \hline
 
-Schultz et al. [2001] & DLL call information, strings, and byte sequences & \centering X & \\ \hline
+Schultz et al. [2001] & DLL call information, strings, and byte sequences & X & \\ \hline
 
-Kolter and Maloof [2004] & Binary n-grams & \centering X & \\ \hline
+Kolter and Maloof [2004] & Binary n-grams & X & \\ \hline
 
-Henchiri and Japkowicz [2006b] & 16-byte sequences & \centering X & \\ \hline
+Henchiri and Japkowicz [2006b] & 16-byte sequences & X & \\ \hline
 
 Wang et al. [2006b] & DLLs and APIs & Modifications upon system files, registries, and network activities & \\ \hline
 
-Anderson et al. [2011] & \centering X & Graphs constructed from dynamically collected instruction traces & \\ \hline
+Anderson et al. [2011] & X & Graphs constructed from dynamically collected instruction traces & \\ \hline
 
-Ye et al. [2011] & \centering X & \centering X & File content combining file relations \\ \hline
+Ye et al. [2011] & X & X & File content combining file relations \\ \hline
 
 Anderson et al. [2012] & 2-gram byte sequences, disassembled OpCodes, control flow graph, and miscellaneous file information & Instruction traces, system call traces & \\ \hline
 
